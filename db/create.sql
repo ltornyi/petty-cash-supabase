@@ -12,7 +12,8 @@ CREATE TABLE cash_transaction(
   updated_at        timestamp with time zone,
   updated_by        uuid,
   CONSTRAINT cash_transaction_pk PRIMARY KEY (transaction_id),
-  CONSTRAINT cash_tran_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users
+  CONSTRAINT cash_tran_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users,
+  CONSTRAINT cash_tran_updated_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users
 );
 
 ALTER TABLE cash_transaction ENABLE ROW LEVEL SECURITY;
