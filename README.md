@@ -32,3 +32,9 @@ Try querying the table using the anon API key; for this to work, you will need a
   -H "apikey: <ANON_KEY>" \
   -H "Authorization: Bearer <ANON_KEY>"
   -H "Accept-Profile: pettycash"
+
+## UI
+
+### SPA
+
+See `ui` folder.
