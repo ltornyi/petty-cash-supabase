@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { SupabaseConfig } from './supabase.config';
-import { Database, Tables } from './supabase.types';
+import { Database } from './supabase.types';
 import { defer } from 'rxjs';
 
 @Injectable({
@@ -21,8 +21,7 @@ export class CashTransactionService {
   getAllRecords() {
     const response = this.pettyCashClient
       .from('cash_transaction')
-      .select()
-      .returns<Tables<'cash_transaction'>>();
+      .select();
 
     return defer(() => response)
   }

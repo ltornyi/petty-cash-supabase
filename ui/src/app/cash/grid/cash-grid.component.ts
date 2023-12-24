@@ -3,6 +3,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CashGridConfig } from './cash-grid.config';
 import { GridReadyEvent } from 'ag-grid-community';
 import { CashTransactionService } from '../data/cash-transaction.service';
+import { Tables } from '../data/supabase.types';
 
 @Component({
   selector: 'app-cash-grid',
@@ -14,7 +15,7 @@ import { CashTransactionService } from '../data/cash-transaction.service';
 })
 export class CashGridComponent {
   public gridConfig = CashGridConfig
-  public rowData : any  = null;
+  public rowData: Tables<'cash_transaction'>[] = [];
 
   constructor(private cashTransactionService: CashTransactionService) {}
 
@@ -24,6 +25,6 @@ export class CashGridComponent {
 
   private loadAll() {
     this.cashTransactionService.getAllRecords()
-      .subscribe(result => this.rowData = result.data);
+      .subscribe(result => this.rowData = result.data ?? []);
   }
 }
