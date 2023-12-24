@@ -24,10 +24,6 @@ export class CashGridComponent {
 
   private loadAll() {
     this.cashTransactionService.getAllRecords()
-      .subscribe(result => {
-        console.log(result);
-        this.rowData = result.data;
-        console.log(this.rowData)
-      });
+      .subscribe(result => this.rowData = result.data);
   }
 }
