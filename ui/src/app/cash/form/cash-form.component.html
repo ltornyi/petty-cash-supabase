@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Cash item</h2>
+<mat-dialog-content style="display: flex; flex-direction: column;" [formGroup]="form">
+  <mat-form-field >
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="transaction_date">
+    @if (form.controls.transaction_date.invalid) {
+      <mat-error>YYYY. MM. DD. format</mat-error>
+    }
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-checkbox formControlName="debit">Debit</mat-checkbox>
+  <mat-form-field >
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount">
+    @if (form.controls.amount.invalid) {
+      <mat-error>Specify an amount</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field >
+    <mat-label>Clerk</mat-label>
+    <input matInput formControlName="clerk">
+    @if (form.controls.amount.invalid) {
+      <mat-error>Clerk is required</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field >
+    <mat-label>Comment</mat-label>
+    <textarea matInput rows="3" formControlName="comment"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-stroked-button (click)="close()">Close</button>
+  <button mat-stroked-button color="primary" (click)="save()" [disabled]="!form.valid">Save</button>
+  @if (cashItem.transaction_id) {
+  <button mat-stroked-button color="warn" (click)="delete()">Delete</button>
+  }
+</mat-dialog-actions>
