@@ -3,7 +3,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CashGridConfig } from './cash-grid.config';
 import { GridReadyEvent } from 'ag-grid-community';
 import { CashTransactionService } from '../data/cash-transaction.service';
-import { Tables } from '../data/supabase.types';
+import { Tables } from '../../common/client/supabase.types';
 
 @Component({
   selector: 'app-cash-grid',

@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
-import { SupabaseClient, createClient } from '@supabase/supabase-js';
-import { SupabaseConfig } from './supabase.config';
-import { Database } from './supabase.types';
 import { defer } from 'rxjs';
+import { createSupabaseClient } from '../../common/client/supabase-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CashTransactionService {
-  private pettyCashClient: SupabaseClient<Database>;
-  private xxx = 'cash_transaction'
+  private pettyCashClient;
+
   constructor() {
-    this.pettyCashClient =  createClient(
-      SupabaseConfig.endpoint,
-      SupabaseConfig.key,
-      {db: {schema: 'pettycash'}}
-    );
+    this.pettyCashClient =  createSupabaseClient('pettycash');
   }
 
   getAllRecords() {
