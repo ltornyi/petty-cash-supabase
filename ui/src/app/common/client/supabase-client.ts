@@ -2,7 +2,7 @@ import { SupabaseClient, createClient } from "@supabase/supabase-js"
 import { SupabaseConfig } from "./supabase.config"
 import { Database } from "./supabase.types"
 
-export const createSupabaseClient = (schema?: keyof Database): SupabaseClient<Database> => {
+export const createSupabaseClient = (schema: keyof Database = 'pettycash'): SupabaseClient<Database> => {
   const options = schema ? {db: {schema}} : undefined
 
   return createClient(

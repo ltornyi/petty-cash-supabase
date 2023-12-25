@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { defer } from 'rxjs';
-import { createSupabaseClient } from '../../common/client/supabase-client';
+import { AuthService } from '../../common/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +8,8 @@ import { createSupabaseClient } from '../../common/client/supabase-client';
 export class CashTransactionService {
   private pettyCashClient;
 
-  constructor() {
-    this.pettyCashClient =  createSupabaseClient('pettycash');
+  constructor(private authService: AuthService) {
+    this.pettyCashClient = authService.supabaseClient
   }
 
   getAllRecords() {

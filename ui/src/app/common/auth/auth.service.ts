@@ -23,6 +23,10 @@ export class AuthService {
     })
   }
 
+  public get supabaseClient() {
+    return this.supabase
+  }
+
   getCurrentUser() {
     return this.currentUser.asObservable()
   }
