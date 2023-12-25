@@ -37,4 +37,4 @@ Try querying the table using the anon API key; for this to work, you will need a
 
 ### SPA
 
-See `ui` folder.
+See `ui` folder. Maybe login and signup could be one component.
