@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { defer } from 'rxjs';
 import { AuthService } from '../../common/auth/auth.service';
-import { CashFormAction, ICashFormResult } from '../form/cash-form.component';
 import { TablesInsert, TablesUpdate } from '../../common/client/supabase.types';
 
 @Injectable({
@@ -35,13 +34,12 @@ export class CashTransactionService {
     if (error) {
       throw new Error(`Failed to create: ${error.message}`);
     } else {
-      console.log('inserted')
-      console.log(data)
+      return data[0]
     }
   }
 
   async update(update: TablesUpdate<'cash_transaction'>) {
-    const {error} = await this.pettyCashClient.from('cash_transaction')
+    const {data, error} = await this.pettyCashClient.from('cash_transaction')
       .update({
         transaction_date: update.transaction_date,
         debit: !!update.debit,
@@ -50,9 +48,11 @@ export class CashTransactionService {
         comment: update.comment
       })
       .eq('transaction_id', update.transaction_id as number)
+      .select()
     if (error) {
       throw new Error(`Failed to update: ${error.message}`);
     }
+    return data[0]
   }
 
   async delete(transaction_id: number) {
@@ -64,18 +64,4 @@ export class CashTransactionService {
     }
   }
 
-  processCashFormResult(formResult: ICashFormResult) {
-    if (formResult && formResult.action !== CashFormAction.Close) {
-      const data = formResult.data
-      if (formResult.action === CashFormAction.Save) {
-        if (!data.transaction_id) {
-          this.create(data)
-        } else {
-          this.update(data)
-        }
-      } else if (formResult.action === CashFormAction.Delete) {
-        this.delete(data.transaction_id)
-      }
-    }
-  }
 }

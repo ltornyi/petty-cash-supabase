@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AgGridModule } from 'ag-grid-angular';
 import { CashGridConfig } from './cash-grid.config';
@@ -6,6 +6,8 @@ import { GridReadyEvent, CellClickedEvent } from 'ag-grid-community';
 import { CashTransactionService } from '../data/cash-transaction.service';
 import { Tables } from '../../common/client/supabase.types';
 import { CashFormComponent } from '../form/cash-form.component';
+import { CashTransactionStore } from '../data/cash-transaction.store';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-cash-grid',
@@ -15,21 +17,33 @@ import { CashFormComponent } from '../form/cash-form.component';
   styleUrl: './cash-grid.component.css',
   providers: [CashTransactionService]
 })
-export class CashGridComponent {
+export class CashGridComponent implements OnInit{
   public gridConfig = CashGridConfig
   public rowData: Tables<'cash_transaction'>[] = [];
 
+  private ngUnsubscribe$: Subject<undefined> = new Subject();
+
   constructor(
-    private cashTransactionService: CashTransactionService,
+    private store: CashTransactionStore,
     private dialog: MatDialog) {}
 
-  onGridReady(params: GridReadyEvent) {
-    this.loadAll();
+  ngOnInit(): void {
+    this.store.cashTransactions$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(state => this.rowData = state.cashTransactions)
   }
 
-  private loadAll() {
-    this.cashTransactionService.getAllRecords()
-      .subscribe(result => this.rowData = result.data ?? []);
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next(undefined);
+    this.ngUnsubscribe$.complete();
+  }
+
+  storeLoadAll() {
+    this.store.loadAll()
+  }
+
+  onGridReady(params: GridReadyEvent) {
+    this.storeLoadAll();
   }
 
   onCellClicked(e: CellClickedEvent) {
@@ -38,7 +52,7 @@ export class CashGridComponent {
       data: e.data,
     });
 
-    dialogRef.afterClosed().subscribe(result => this.cashTransactionService.processCashFormResult(result));
+    dialogRef.afterClosed().subscribe(result => this.store.processCashFormResult(result));
   }
 
 }
