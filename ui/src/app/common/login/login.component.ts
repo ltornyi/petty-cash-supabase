@@ -9,11 +9,6 @@ import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-interface LoginItem {
-  email: string,
-  password: string
-}
-
 @Component({
   selector: 'app-login',
   standalone: true,
