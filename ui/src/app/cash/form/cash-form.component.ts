@@ -4,9 +4,11 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatDateFnsModule, DateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { enGB } from 'date-fns/locale';
 
 import { Tables } from '../../common/client/supabase.types';
 
@@ -21,10 +23,29 @@ export interface ICashFormResult {
   action: CashFormAction
 }
 
+const ISO_DATE_FORMATS = {
+  parse: {
+    dateInput: 'yyyy-MM-dd',
+  },
+  display: {
+    dateInput: 'yyyy-MM-dd',
+    monthLabel: 'MMM',
+    monthYearLabel: 'MMM yyyy',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM yyyy'
+  },
+};
+
 @Component({
   selector: 'app-cash-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatDatepickerModule, MatDateFnsModule, MatCheckboxModule, MatButtonModule],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: enGB},
+    {provide: DateAdapter, useClass: DateFnsAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: ISO_DATE_FORMATS},
+
+  ],
   templateUrl: './cash-form.component.html',
   styleUrl: './cash-form.component.css'
 })

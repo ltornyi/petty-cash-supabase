@@ -4,7 +4,7 @@
     <mat-label>Date</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="transaction_date">
     @if (form.controls.transaction_date.invalid) {
-      <mat-error>YYYY. MM. DD. format</mat-error>
+      <mat-error>Use YYYY-MM-DD format</mat-error>
     }
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
