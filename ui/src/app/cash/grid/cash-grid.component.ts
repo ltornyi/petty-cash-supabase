@@ -5,7 +5,7 @@ import { CashGridConfig } from './cash-grid.config';
 import { GridReadyEvent, CellClickedEvent } from 'ag-grid-community';
 import { CashTransactionService } from '../data/cash-transaction.service';
 import { Tables } from '../../common/client/supabase.types';
-import { CashFormComponent, ICashFormResult } from '../form/cash-form.component';
+import { CashFormComponent } from '../form/cash-form.component';
 
 @Component({
   selector: 'app-cash-grid',
@@ -38,12 +38,7 @@ export class CashGridComponent {
       data: e.data,
     });
 
-    dialogRef.afterClosed().subscribe(result => this.processDialogResult(result));
+    dialogRef.afterClosed().subscribe(result => this.cashTransactionService.processCashFormResult(result));
   }
 
-  private processDialogResult(result: ICashFormResult) {
-    if (result) {
-      console.log(result.action)
-    }
-  }
 }

@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { AuthService } from '../../common/auth/auth.service';
 import { CashFormComponent } from '../form/cash-form.component';
+import { CashTransactionService } from '../data/cash-transaction.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,7 +21,8 @@ export class ToolbarComponent {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private router: Router) {}
+    private router: Router,
+    private cashTransactionService: CashTransactionService) {}
 
   logout() {
     this.authService.signOut()
@@ -34,10 +36,6 @@ export class ToolbarComponent {
       width: '450px',
       data: {transaction_date: new Date(), clerk: currentUser?.email},
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Closed')
-      console.log(result);
-    });
-
+    dialogRef.afterClosed().subscribe(result => this.cashTransactionService.processCashFormResult(result));
   }
 }
