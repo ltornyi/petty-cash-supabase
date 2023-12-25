@@ -1,1 +1,7 @@
-<p>toolbar works!</p>
+<mat-toolbar style="height: 10%">
+  <button mat-fab color="primary" (click)="openNewCashDialog()">
+    <mat-icon>plus_one</mat-icon>
+  </button>
+  <div style="flex: 1 1 auto;"></div>
+  <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+</mat-toolbar>

@@ -31,6 +31,10 @@ export class AuthService {
     return this.currentUser.asObservable()
   }
 
+  getCurrentUserValue() {
+    return this.currentUser.value
+  }
+
   signUp(credentials: { email: string, password: string }) {
     return this.supabase.auth.signUp(credentials)
   }
