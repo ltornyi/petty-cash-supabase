@@ -28,10 +28,12 @@ See `db/create.sql` and `db/policies.sql`
 
 Try querying the table using the anon API key; for this to work, you will need a policy like `policy_anon_read.sql` (don't forget to drop the policy):
 
-  curl 'https://<PROJECT_REF>.supabase.co/rest/v1/cash_transaction' \
-  -H "apikey: <ANON_KEY>" \
-  -H "Authorization: Bearer <ANON_KEY>"
-  -H "Accept-Profile: pettycash"
+```
+curl 'https://<PROJECT_REF>.supabase.co/rest/v1/cash_transaction' \
+-H "apikey: <ANON_KEY>" \
+-H "Authorization: Bearer <ANON_KEY>" \
+-H "Accept-Profile: pettycash"
+```
 
 ## UI
 
