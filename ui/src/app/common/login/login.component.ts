@@ -56,4 +56,8 @@ export class LoginComponent implements OnInit{
   signUp() {
     this.router.navigateByUrl('/signup')
   }
+
+  sendPwReset() {
+    this.router.navigateByUrl('/sendpwreset')
+  }
 }

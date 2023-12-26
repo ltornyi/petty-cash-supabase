@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Update password</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+    <form style="display: flex; flex-direction: column;" [formGroup]="form" (ngSubmit)="updatePwd()">
+        <mat-form-field>
+          <mat-label>New password</mat-label>
+          <input type="password" matInput formControlName="password">
+          @if (form.controls.password.invalid) {
+            <mat-error>Enter your new password</mat-error>
+          }
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid">Update my password</button>
+        @if (pwUpdateError) {
+          <mat-error>{{pwUpdateError}}</mat-error>
+        }
+        <mat-divider style="margin-top: 1em; margin-bottom: 1em"></mat-divider>
+        <button type="button" mat-stroked-button color="primary" (click)="login()">Go back to login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

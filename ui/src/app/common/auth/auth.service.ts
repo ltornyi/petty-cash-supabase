@@ -46,7 +46,11 @@ export class AuthService {
   }
 
   sendPwReset(email: string) {
-    return this.supabase.auth.resetPasswordForEmail(email)
+    return this.supabase.auth.resetPasswordForEmail(email, {redirectTo:`${window.location.origin}/resetpw`})
+  }
+
+  updatePw(password: string) {
+    return this.supabase.auth.updateUser({password})
   }
 
   async signOut() {
