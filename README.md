@@ -37,4 +37,8 @@ Try querying the table using the anon API key; for this to work, you will need a
 
 ### SPA
 
-See `ui` folder. Maybe login and signup could be one component.
+Pretty much a basic Angular project, see `ui` folder. Maybe login/signup/resetpw/sendpwreset could be one component. Or maybe not.
+
+### Supabase client
+
+Client related types and config is in `ui/src/app/common/client`. There are instructions in the `db` folder to generate types for the frontend project. The generated file is `supabase.types.ts`. Also, `supabase.config.ts` has the Supabase project url and anon key.
